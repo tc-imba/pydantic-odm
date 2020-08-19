@@ -263,7 +263,7 @@ class DBPydanticMixin(BaseDBMixin):
     async def save(self) -> DBPydanticMixin:
         collection = await self.get_collection()
         if not self.id:
-            data = self._encode_model_to_mongo()
+            data = self._encode_model_to_mongo(exclude={'id'})
             instance = await collection.insert_one(data)
             if instance:
                 self.id = instance.inserted_id
